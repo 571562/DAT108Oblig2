@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 
 /**
  * Servlet implementation class loginhandler
@@ -59,10 +60,11 @@ public class loginhandler extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		String pwin = request.getParameter("passord");
+		String pwEscaped = escapeHtml(pwin);
 				
 		String pw = this.getInitParameter("pass");
 		
-		if(!pwin.equals(pw)) {
+		if(!pwEscaped.equals(pw)) {
 			out.println("<html><body>");
 			out.println("<form action=\"loginhandler\" method=\"post\">");
 			out.println("<fieldset>");
