@@ -14,10 +14,6 @@ public class Vare {
 	
 	@Override
 	public boolean equals(Object o) {
-	//	return (((Vare) o).getNamn()).equals(namn);
-		
-		
-		
 		return namn.equals((((Vare) o).getNamn()));
 	}
 
