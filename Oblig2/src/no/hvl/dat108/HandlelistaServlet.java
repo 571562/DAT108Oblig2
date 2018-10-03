@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import static org.apache.commons.lang.StringEscapeUtils.escapeHtml;
 
 /**
  * 
@@ -70,14 +71,16 @@ public class HandlelistaServlet extends HttpServlet {
 		HandleVogn vogn = (HandleVogn) sesjon.getAttribute("liste");
 		String vare = request.getParameter("vare");
 		String slett = request.getParameter("slett");
-
-		if (vare != null && vare.length() > 0) {
-			vogn.addVare(vare);
-			System.out.println(vare = Character.toUpperCase(vare.charAt(0)) + vare.substring(1) + " er lagt til i lista!"); //Dette har eg med slik at eg ser at alt blir gjort rett!
+		String vEscaped = escapeHtml(vare);
+		String sEscaped = escapeHtml(slett);
+		
+		if (vEscaped != null && vare.length() > 0) {
+			vogn.addVare(vEscaped);
+			System.out.println(vEscaped = Character.toUpperCase(vEscaped.charAt(0)) + vEscaped.substring(1) + " er lagt til i lista!"); //Dette har eg med slik at eg ser at alt blir gjort rett!
 
 		} else if (slett != null && slett.length() > 0) {
-			vogn.removeVare(slett);
-			System.out.println(slett = Character.toUpperCase(slett.charAt(0)) + slett.substring(1) + " er sletta frå lista!"); //Dette har eg med slik at eg ser at alt blir gjort rett!
+			vogn.removeVare(sEscaped);
+			System.out.println(sEscaped = Character.toUpperCase(sEscaped.charAt(0)) + sEscaped.substring(1) + " er sletta frå lista!"); //Dette har eg med slik at eg ser at alt blir gjort rett!
 
 		}
 
