@@ -62,12 +62,12 @@ public class HandlelistaServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession sesjon = request.getSession(true);
+		HttpSession sesjon = request.getSession(false);
 		PrintWriter out = response.getWriter();
 
-		if (sesjon.getAttribute("liste") == null) {
-			sesjon.setAttribute("liste", new HandleVogn());
-		}
+		if (sesjon == null) {
+			response.sendRedirect("loginhandler?timeOut");
+		} else {
 
 		HandleVogn vogn = (HandleVogn) sesjon.getAttribute("liste");
 		String vare = request.getParameter("vare");
@@ -75,6 +75,7 @@ public class HandlelistaServlet extends HttpServlet {
 		String vEscaped = escapeHtml(vare);
 		String sEscaped = escapeHtml(slett);
 
+	
 		if (vEscaped != null && vare.length() > 0) {
 			vogn.addVare(vEscaped);
 			System.out.println(vEscaped = Character.toUpperCase(vEscaped.charAt(0)) + vEscaped.substring(1)
@@ -89,4 +90,5 @@ public class HandlelistaServlet extends HttpServlet {
 
 		response.sendRedirect("handlelista");
 	}
+}
 }

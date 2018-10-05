@@ -30,12 +30,15 @@ public class loginhandler extends HttpServlet {
 		
 		HttpSession sesjon = request.getSession(false);
 		PrintWriter out = response.getWriter();
+		String tid = getInitParameter("TimeOut");
+		Integer time = Integer.valueOf(tid);
 		
 		if( sesjon != null) {
 			sesjon.invalidate();
 		} else {
 			sesjon = request.getSession(true);
-			sesjon.setMaxInactiveInterval(30);
+			
+			sesjon.setMaxInactiveInterval(time);
 			sesjon.setAttribute("password", request.getParameter("passord"));
 		}
 		
@@ -49,13 +52,12 @@ public class loginhandler extends HttpServlet {
 		out.println("<body>");
 		out.println("<form action=\"loginhandler\" method=\"post\">");
 		out.println("<fieldset>");
+		out.println("<legend><b>Skriv inn passordet ditt</b></legend>");
 		if(feilPassord) {
 			out.println("<p>Passordet du skreiv inn var feil. Prøv på nytt:</p>");
-		}
-		else if(timeOut) {
+		} else if(timeOut) {
 			out.println("<p>Du har vert inaktiv for lenge... Logg inn på nytt:</p>");
 		}
-		out.println("<legend><b>Skriv inn passordet ditt</b></legend>");
 		out.println("<p><input type=\"password\" name=\"passord\" placeholder=\"Passord\"/></p>");
 		out.println("<p><input type=\"submit\" value=\"Logg inn\"/></p>");
 		out.println("</fieldset></form></body></html>");
@@ -65,40 +67,30 @@ public class loginhandler extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
 
 		String pwin = request.getParameter("passord");
 		String pwEscaped = escapeHtml(pwin);
 
 		String pw = this.getInitParameter("pass");
+		String tid = getInitParameter("TimeOut");
+		Integer time = Integer.valueOf(tid);
 
 		if (!pwEscaped.equals(pw)) {
-			/*
-			 * out.println("<html><body>");
-			 * out.println("<form action=\"loginhandler\" method=\"post\">");
-			 * out.println("<fieldset>");
-			 * out.println("<legend><b>Skriv inn passordet ditt</b></legend>");
-			 * out.println("<p>Passordet du skreiv inn var feil. Prøv på nytt:</p>"); out.
-			 * println("<p><input type=\"password\" name=\"passord\" placeholder=\"Passord\"/></p>"
-			 * ); out.println("<p><input type=\"submit\" value=\"Logg inn\"/></p>");
-			 * out.println("</fieldset></form></body></html>");
-			 */
 			response.sendRedirect("loginhandler?feilPassord");
 		} else {
 			HttpSession sesjon = request.getSession(false);
 			if (sesjon != null) {
 				sesjon.invalidate();
-			} else {
+			} 
 				sesjon = request.getSession(true);
-				sesjon.setMaxInactiveInterval(30);
+				sesjon.setMaxInactiveInterval(time);
 				sesjon.setAttribute("liste", new HandleVogn());
-				
 				response.sendRedirect("handlelista");
+				
 			}
 
-			// response.sendRedirect("handlelista");
 		}
 
 	}
 
-}
+
