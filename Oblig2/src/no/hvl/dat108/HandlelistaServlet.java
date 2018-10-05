@@ -69,26 +69,27 @@ public class HandlelistaServlet extends HttpServlet {
 			response.sendRedirect("loginhandler?timeOut");
 		} else {
 
-		HandleVogn vogn = (HandleVogn) sesjon.getAttribute("liste");
-		String vare = request.getParameter("vare");
-		String slett = request.getParameter("slett");
-		String vEscaped = escapeHtml(vare);
-		String sEscaped = escapeHtml(slett);
+			HandleVogn vogn = (HandleVogn) sesjon.getAttribute("liste");
+			String vare = request.getParameter("vare");
+			String slett = request.getParameter("slett");
+			String vEscaped = escapeHtml(vare);
+			String sEscaped = escapeHtml(slett);
 
-	
-		if (vEscaped != null && vare.length() > 0) {
-			vogn.addVare(vEscaped);
-			System.out.println(vEscaped = Character.toUpperCase(vEscaped.charAt(0)) + vEscaped.substring(1)
-					+ " er lagt til i lista!"); // Dette har eg med slik at eg ser at alt blir gjort rett!
+			if (vEscaped != null && vare.length() > 0) {
+				vogn.addVare(vEscaped);
+				System.out.println(vEscaped = Character.toUpperCase(vEscaped.charAt(0)) + vEscaped.substring(1)
+						+ " er lagt til i lista!"); // Dette har eg med slik at eg ser at alt blir gjort rett!
 
-		} else if (slett != null && slett.length() > 0) {
-			vogn.removeVare(sEscaped);
-			System.out.println(sEscaped = Character.toUpperCase(sEscaped.charAt(0)) + sEscaped.substring(1)
-					+ " er sletta frå lista!"); // Dette har eg med slik at eg ser at alt blir gjort rett!
+			} else if (slett != null && slett.length() > 0) {
+				synchronized (vogn) {
+					vogn.removeVare(sEscaped);
+				}
+				System.out.println(sEscaped = Character.toUpperCase(sEscaped.charAt(0)) + sEscaped.substring(1)
+						+ " er sletta frå lista!"); // Dette har eg med slik at eg ser at alt blir gjort rett!
 
+			}
+
+			response.sendRedirect("handlelista");
 		}
-
-		response.sendRedirect("handlelista");
 	}
-}
 }
