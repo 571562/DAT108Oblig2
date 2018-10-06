@@ -21,7 +21,7 @@ public class HandleVogn {
 
 	public void removeVare(String namn) {
 		varer.removeIf(vare -> vare.getNamn().equals(namn));
-		
+
 	}
 
 	public ArrayList<Vare> getVarer() {
@@ -32,5 +32,14 @@ public class HandleVogn {
 	public String toString() {
 		return "HandleVogn [varer=" + varer.toString() + "]";
 	}
+
+	public int storLeik() {
+		return varer.size();
+	}
+	
+	public String hent(int index) {
+		return varer.get(index).getNamn();
+	}
+	
 
 }
