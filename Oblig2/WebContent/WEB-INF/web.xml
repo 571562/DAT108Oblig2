@@ -13,7 +13,7 @@
     </init-param>
     <init-param>
     	<param-name>TimeOut</param-name>
-    	<param-value>10</param-value>
+    	<param-value>30</param-value>
     </init-param>
   </servlet>
 </web-app>

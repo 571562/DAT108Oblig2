@@ -74,7 +74,6 @@ public class HandlelistaServlet extends HttpServlet {
 			String slett = request.getParameter("slett");
 			String vEscaped = escapeHtml(vare);
 			String sEscaped = escapeHtml(slett);
-		
 
 			if (vEscaped != null && vare.length() > 0) {
 				vogn.addVare(vEscaped);

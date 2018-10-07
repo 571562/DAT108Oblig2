@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * 
- * @author herbo
+ * @author herbo & sondr
  *
  */
 public class HandleVogn {
@@ -18,10 +18,9 @@ public class HandleVogn {
 	public void addVare(String namn) {
 		varer.add(new Vare(namn));
 	}
-
+	
 	public void removeVare(String namn) {
 		varer.removeIf(vare -> vare.getNamn().equals(namn));
-
 	}
 
 	public ArrayList<Vare> getVarer() {
@@ -32,7 +31,7 @@ public class HandleVogn {
 	public String toString() {
 		return "HandleVogn [varer=" + varer.toString() + "]";
 	}
-
+	//Størrelse og hent er lagd for å gjøre testingen enklere
 	public int storLeik() {
 		return varer.size();
 	}

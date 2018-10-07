@@ -4,38 +4,38 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.jupiter.api.Test;
-
+import org.junit.Test;
+/**
+ * @author herbo & sondr
+ */
 public class ServletTests {
-
-	HandleVogn forventa;
-	HandleVogn actual = new HandleVogn();
+	HandleVogn vogn = new HandleVogn();
 
 	@Test
 	public void testAddVare() {
-		actual.addVare("Eple");
-		actual.addVare("Pære");
+		vogn.addVare("Eple");
+		vogn.addVare("Pære");
 
-		assertEquals(2, actual.storLeik());
-		assertEquals("Eple", actual.hent(0));
-		assertEquals("Pære", actual.hent(1));
+		assertEquals(2, vogn.storLeik());
+		assertEquals("Eple", vogn.hent(0));
+		assertEquals("Pære", vogn.hent(1));
 	}
 
 	@Test
 	public void slettVare() {
-		actual.addVare("Pære");
-		actual.removeVare("Pære");
-		assertTrue(actual.hent(0) == null);
+		vogn.addVare("Pære");
+		vogn.removeVare("Pære");
+		assertTrue(vogn.storLeik() == 0);
 	}
 
 	@Test
 	public void slettEinAvToVarer() {
-		actual.addVare("Kanin");
-		actual.addVare("Bein");
+		vogn.addVare("Kanin");
+		vogn.addVare("Bein");
 
-		actual.removeVare("Bein");
-		assertEquals(1, actual.storLeik());
-		for (Vare v : actual.getVarer()) {
+		vogn.removeVare("Bein");
+		assertEquals(1, vogn.storLeik());
+		for (Vare v : vogn.getVarer()) {
 			assertFalse("Bein".equals(v.getNamn()));
 		}
 	}

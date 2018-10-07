@@ -67,11 +67,15 @@ public class loginhandler extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+		//EscapeHtml var det mest anbefalte eksterne biblioteket eg kunne finne
+		//Passordet er passord, kan såklart endres
 		String pwin = request.getParameter("passord");
 		String pwEscaped = escapeHtml(pwin);
 
 		String pw = this.getInitParameter("pass");
+		
+		//Denne er for øyeblikket 30 sekunder
 		String tid = getInitParameter("TimeOut");
 		Integer time = Integer.valueOf(tid);
 

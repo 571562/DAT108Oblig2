@@ -1,5 +1,9 @@
 package no.hvl.dat108;
-
+/**
+ * 
+ * @author herbo & sondr
+ *
+ */
 public class Vare {
 	
 	private String namn;
@@ -7,7 +11,7 @@ public class Vare {
 	public Vare(String namn) {
 		this.namn = namn;
 	}
-
+	//Henter navnet på ein vare med stor forbokstav for estetikk
 	public String getNamn() {
 		return namn = Character.toUpperCase(namn.charAt(0)) + namn.substring(1);
 	}
